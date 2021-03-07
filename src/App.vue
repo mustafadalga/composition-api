@@ -1,30 +1,56 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="app container">
+    <header class="header">
+      <NavBar />
+    </header>
+    <main class="main">
+      <section class="content">
+        <router-view />
+      </section>
+      <aside class="tags">
+        <Tags :tags="tags" />
+      </aside>
+    </main>
   </div>
-  <router-view/>
 </template>
+<script>
+import NavBar from "@/components/NavBar";
+import Tags from "@/components/Tags";
+import getTags from "@/composable/getTags";
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+export default {
+  components: {
+    NavBar,
+    Tags,
+  },
+  setup() {
+    const { tags, error, fetchTags } = getTags();
+    fetchTags();
+    return {
+      tags,
+      error,
+    };
+  },
+};
+</script>
+<style scoped>
+@import "./assets/css/style.css";
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  margin-top: 2.5rem;
 }
-
-#nav {
-  padding: 30px;
+.content {
+  grid-area: 1 / 1 / 2 / 5;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.tags {
+  grid-area: 1 / 5 / 2 / 6;
+  display: flex;
+  align-items: baseline;
+  align-content: baseline;
 }
 </style>

@@ -1,0 +1,20 @@
+* {
+    text-decoration: none;
+}
+
+.tag-list {
+    display: flex;
+    grid-gap: 15px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 5px 10px;
+    background-color: cornflowerblue;
+    border-radius: 8px;
+}
+
+.tag a {
+    color: #fff;
+    text-decoration: none;
+}
