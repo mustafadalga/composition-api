@@ -1,11 +1,11 @@
 <template>
   <section class="search-result">
-     <h1>Search Results for {{ searchText }}</h1>
+     <h1 class="text-success">Search Results for {{ searchText }}</h1>
     <div v-if="posts.length">
       <PostList :posts="posts" />
     </div> 
    <div v-else>
-      <h3>No results were found for the css {{ tag }}.</h3>
+      <h4 class="text-danger">No results were found for the  {{ tag }}.</h4>
     </div>
   </section>
 </template>

@@ -21,7 +21,6 @@ export default {
   setup() {
    const {posts,fetchPosts,error}=getPosts()
    fetchPosts()
-   console.log(posts)
     const showPosts = ref(true);
     return { posts, showPosts,error };
   },

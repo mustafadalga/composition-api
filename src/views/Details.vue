@@ -23,8 +23,6 @@ export default {
   setup(props) {
     const { post, error, fetchPost } = getPost(props.id);
     fetchPost();
-    console.log(props.id);
-
     return { post, error };
   },
 };
