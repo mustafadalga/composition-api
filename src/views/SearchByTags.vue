@@ -1,6 +1,5 @@
 <template>
   <section class="search-result">
-
     <div v-if="posts.length">
       <PostList :posts="posts" />
     </div> 
@@ -12,25 +11,20 @@
 
 <script>
 import PostList from "@/components/PostList";
-import getPosts from '@/composable/getPosts'
 import { computed } from 'vue';
+import { useStore } from 'vuex'
 export default {
   props: ["tag"],
   components: {
     PostList,
   },
     setup(props) {
-      const {posts,error, fetchPosts } = getPosts()
-      const load = async () => {
-         await fetchPosts()
-      }
-     load()
+    const store = useStore()
      const filterPosts = computed(() => {
-      return posts.value.filter(post=>post.tags.includes(props.tag))
+      return store.state.posts.filter(post=>post.tags.includes(props.tag))
     });
     return {
       posts:filterPosts,
-      error
     };
   },
 };

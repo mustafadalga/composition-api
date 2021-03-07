@@ -16,7 +16,8 @@
 <script>
 import NavBar from "@/components/NavBar";
 import Tags from "@/components/Tags";
-import getTags from "@/composable/getTags";
+import { useStore } from 'vuex';
+import { computed } from 'vue';
 
 export default {
   components: {
@@ -24,11 +25,12 @@ export default {
     Tags,
   },
   setup() {
-    const { tags, error, fetchTags } = getTags();
-    fetchTags();
+   const store = useStore()
+   store.dispatch('fetchPosts')
+   store.dispatch('fetchTags')
+   const tags = computed(() => store.state.tags)
     return {
       tags,
-      error,
     };
   },
 };

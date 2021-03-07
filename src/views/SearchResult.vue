@@ -12,31 +12,26 @@
 
 <script>
 import PostList from "@/components/PostList";
-import getPosts from '@/composable/getPosts'
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex';
 
 export default {
   props: ["tag"],
   components: {
     PostList,
   },
-    setup() {
+  setup() {
     const searchText=ref('')    
     const route=useRoute()
-    const {posts,error, fetchPosts } = getPosts()
-    const load = async () => {
-         await fetchPosts()
-    }
-    load()
+    const store=useStore()
     const filterPosts = computed(() => {
       searchText.value=route.query.query.toLowerCase()
-      return posts.value.filter(post=> post.tags.includes(searchText.value) || post.title.includes(searchText.value))
+      return store.state.posts.filter(post=> post.tags.includes(searchText.value) || post.title.includes(searchText.value))
     });
     return {
       searchText,
       posts:filterPosts,
-      error
     };
   },
 };

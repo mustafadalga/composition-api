@@ -28,7 +28,7 @@ export default {
   const router = useRouter()
    const search = () => {
      if(searchText.value.trim().length>0){
-       router.push({ path: 'search', query: { query: searchText.value} })
+       router.push({ name: 'search', query: { query: searchText.value} })
      }
     }
    return {searchText,  search }

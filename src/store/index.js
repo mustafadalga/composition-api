@@ -8,4 +8,4 @@ export default createStore({
     getters,
     actions,
     mutations,
-})
+});

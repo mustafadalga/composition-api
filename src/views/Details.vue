@@ -1,8 +1,5 @@
 <template>
   <div class="details">
-    <div v-if="error">
-      {{ error }}
-    </div>
     <div v-if="post" class="post">
       <h3>{{ post.title }}</h3>
       <p class="pre">{{ post.body }}</p>
@@ -14,6 +11,8 @@
 <script>
 import getPost from "@/composable/getPost";
 import Tags from "@/components/Tags";
+import { useStore } from 'vuex';
+import { computed } from 'vue';
 
 export default {
   props: ["id"],
@@ -21,11 +20,10 @@ export default {
     Tags,
   },
   setup(props) {
-    const { post, error, fetchPost } = getPost(props.id);
-    fetchPost();
-    console.log(props.id);
-
-    return { post, error };
+    const store=useStore()
+    return { 
+      post:computed(()=>store.state.posts.find(post=>post.id==Number(props.id)))
+    };
   },
 };
 </script>
