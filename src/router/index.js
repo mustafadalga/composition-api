@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+const Details = lazyLoad("Details")
+const Search = lazyLoad("SearchResult")
+const Tags = lazyLoad("SearchByTags")
 
 const routes = [{
     path: '/',
@@ -8,17 +11,17 @@ const routes = [{
 }, {
     path: '/posts/:id',
     name: 'Details',
-    component: () => lazyLoading('Details.vue'),
+    component: Details,
     props: true
 }, {
     path: '/tags/:tag',
     name: 'SearchByTags',
-    component: () => lazyLoading('SearchByTags.vue'),
+    component: Tags,
     props: true
 }, {
     path: '/search',
     name: 'search',
-    component: () => lazyLoading('SearchResult.vue'),
+    component: Search,
     props: true
 }]
 
@@ -27,8 +30,9 @@ const router = createRouter({
     routes
 })
 
-function lazyLoading(page) {
-    return import (`@/views/${page}`)
+function lazyLoad(view) {
+    return () =>
+        import (`@/views/${view}.vue`)
 }
 
 export default router
